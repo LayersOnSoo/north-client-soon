@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -13,7 +12,7 @@ import {
 } from "@/components/ui/form";
 import { useContext, useState } from "react";
 import { Button } from "@/components/ui/button";
-import axios from "axios";
+// import axios from "axios";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -129,25 +128,25 @@ export default function FormCreateCampaign() {
     },
   });
 
-  async function storeDataToBackend(campaignData: any) {
-    try {
-      const response = await axios.post(
-        "http://localhost:3000/api/campaign/create-campaign",
-        campaignData
-      );
+  // async function storeDataToBackend(campaignData: any) {
+  //   try {
+  //     const response = await axios.post(
+  //       "http://localhost:3000/api/campaign/create-campaign",
+  //       campaignData
+  //     );
 
-      if (response.status === 201) {
-        console.log(response.data);
-        toast.success("Campaign created successfully in the backend!");
-        return true; // Successfully created in backend
-      } else {
-        throw new Error("Failed to create campaign in backend.");
-      }
-    } catch (error: any) {
-      toast.error(`Error sending campaign data to backend: ${error.message}`);
-      throw error; // Rethrow error to propagate it
-    }
-  }
+  //     if (response.status === 201) {
+  //       console.log(response.data);
+  //       toast.success("Campaign created successfully in the backend!");
+  //       return true; // Successfully created in backend
+  //     } else {
+  //       throw new Error("Failed to create campaign in backend.");
+  //     }
+  //   } catch (error: any) {
+  //     toast.error(`Error sending campaign data to backend: ${error.message}`);
+  //     throw error; // Rethrow error to propagate it
+  //   }
+  // }
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     if (!program || !publicKey) {
@@ -178,10 +177,8 @@ export default function FormCreateCampaign() {
        * Transform file
        */
       const base64File = await fileToBase64(file);
-      console.log("Base64 File:", base64File);
 
       const mimeType = file.type;
-      console.log("MIME Type:", mimeType);
 
       const fileData = {
         fileData: base64File,
@@ -211,50 +208,20 @@ export default function FormCreateCampaign() {
       toast.error("Failed to upload one or more files to IPFS");
       return;
     }
-
     try {
-      const campaignData = {
-        email: values.email,
-        title: values.title,
-        name: values.name,
-        admission_proof_url: admissionProofCID,
-        university_name: values.university_name,
-        matric_number: values.matric_number,
-        course_of_study: values.course_of_study,
-        year_of_entry: values.year_of_entry,
-        student_image_url: studentImageCID,
-        student_result_image_url: resultImageCID,
-        funding_reason: values.funding_reason,
-        project_link: values.project_link,
-        goal: values.goal,
-        start_at: values.start_at,
-        end_at: values.end_at,
-      };
-
-      // 1. Send campaign data to the MongoDB backend
-      storeDataToBackend(campaignData).then(() => {
-        console.log("Sent to backend successfully!");
-      });
-
-      // //  then send data to the blockchain
       const tx = await createCampaign(program, publicKey, {
         email: values.email,
         title: values.title,
         name: values.name,
-
         admission_proof_url: admissionProofCID,
         university_name: values.university_name,
-
         matric_number: values.matric_number,
         course_of_study: values.course_of_study,
         year_of_entry: values.year_of_entry,
-
         student_image_url: studentImageCID,
         student_result_image_url: resultImageCID,
-
         funding_reason: values.funding_reason,
         project_link: values.project_link,
-
         goal: values.goal,
         start_at: values.start_at,
         end_at: values.end_at,
@@ -262,11 +229,11 @@ export default function FormCreateCampaign() {
 
       console.log(tx);
 
-      toast.success("campaign created");
+      toast.success("Campaign created");
       form.reset();
-    } catch (error: any) {
+    } catch (error) {
       toast.error(error.message);
-      console.log(error, error.message);
+      console.log("Error:", error.message);
     }
   }
 

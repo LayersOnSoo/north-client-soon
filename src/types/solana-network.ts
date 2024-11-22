@@ -9,9 +9,9 @@ export type NetworkDictionary<T = string> = {
   [K in keyof typeof NetworkName]: T;
 };
 
-export const SolanaNetworkDictionary: NetworkDictionary<Cluster> = {
+export const SolanaNetworkDictionary: NetworkDictionary = {
   [NetworkName.Mainnet]: "mainnet-beta",
-  [NetworkName.Devnet]: "devnet",
+  [NetworkName.Devnet]: "https://rpc.devnet.soo.network/rpc",
 };
 
 /**

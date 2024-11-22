@@ -1,10 +1,10 @@
-import { NetworkName, SolanaNetworkDictionary } from "@/types";
-import React, { useState, useEffect } from "react";
-import { useAnchorWallet } from "@solana/wallet-adapter-react";
-import { Program } from "@coral-xyz/anchor";
+import { getProgramId, IDL, Northfund } from "@/programs/northfunding";
+import { NetworkName } from "@/types";
 import * as anchor from "@coral-xyz/anchor";
-import { IDL, getProgramId, Northfund } from "@/programs/northfunding";
-import { clusterApiUrl } from "@solana/web3.js";
+import { Program } from "@coral-xyz/anchor";
+import { useAnchorWallet } from "@solana/wallet-adapter-react";
+import { Connection } from "@solana/web3.js";
+import React, { useEffect, useState } from "react";
 
 export const SessionContext = React.createContext<{
   selectedNetwork: NetworkName;
@@ -26,9 +26,9 @@ export function useSession() {
 
   useEffect(() => {
     if (wallet) {
-      const connection = new anchor.web3.Connection(
-        clusterApiUrl(SolanaNetworkDictionary[selectedNetwork]),
-        { commitment: "confirmed" }
+      const connection = new Connection(
+        "https://rpc.devnet.soo.network/rpc",
+        "confirmed"
       );
       const provider: anchor.Provider = new anchor.AnchorProvider(
         connection,

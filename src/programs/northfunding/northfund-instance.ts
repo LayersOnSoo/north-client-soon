@@ -8,8 +8,11 @@ import { getProgramId } from "./programId";
 export async function northfundProgramInstance(
   network: NetworkName
 ): Promise<Program<Northfund>> {
-  const rpcUrl = await getAlchemyRpcUrl(network);
-  const connection = new Connection(rpcUrl, "confirmed");
+  // const rpcUrl = await getAlchemyRpcUrl(network);
+  const connection = new Connection(
+    "https://rpc.devnet.soo.network/rpc", // soo.network RPC endpoint
+    "confirmed" // Commitment level
+  );
   const programId = getProgramId(network);
   const program = new Program<Northfund>(IDL, programId, {
     connection,
