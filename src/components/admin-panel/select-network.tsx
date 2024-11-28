@@ -16,7 +16,7 @@ export const SelectNetwork = () => {
 
   return (
     <Select
-      defaultValue={NetworkName.Devnet}
+      defaultValue={NetworkName.Testnet}
       onValueChange={(value) => setSelectedNetwork(value)}
     >
       <SelectTrigger className="w-[180px]">
@@ -30,6 +30,9 @@ export const SelectNetwork = () => {
             className="pointer-events-none opacity-30"
           >
             {NetworkName.Mainnet}
+          </SelectItem>
+          <SelectItem value={NetworkName.Testnet}>
+            {NetworkName.Testnet}
           </SelectItem>
           <SelectItem value={NetworkName.Devnet}>
             {NetworkName.Devnet}

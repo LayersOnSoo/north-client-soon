@@ -12,7 +12,7 @@ import "@solana/wallet-adapter-react-ui/styles.css";
 export const WalletContextProvider: FC<{ children: ReactNode }> = ({
   children,
 }) => {
-  const endpoint = web3.clusterApiUrl("devnet");
+  const endpoint = web3.clusterApiUrl("testnet");
   const wallets = useMemo(() => {
     return [
       new walletAdapterWallets.PhantomWalletAdapter(),

@@ -2,11 +2,11 @@ import { NetworkName } from "@/types";
 import { PublicKey } from "@solana/web3.js";
 
 const MAINNET_PROGRAM_ID = import.meta.env.VITE_MAINNET_PROGRAM_ID as string;
-const DEVNET_PROGRAM_ID = import.meta.env.VITE_DEVNET_PROGRAM_ID as string;
+const TESTNET_PROGRAM_ID = import.meta.env.VITE_TESTNET_PROGRAM_ID as string;
 
 export const getProgramId = (network: NetworkName): PublicKey => {
   const programIdString =
-    network === NetworkName.Mainnet ? MAINNET_PROGRAM_ID : DEVNET_PROGRAM_ID;
+    network === NetworkName.Mainnet ? MAINNET_PROGRAM_ID : TESTNET_PROGRAM_ID;
 
   if (!programIdString) {
     throw new Error(`Program ID for ${network} is not defined`);

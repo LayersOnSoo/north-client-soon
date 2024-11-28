@@ -1,8 +1,7 @@
-import { Program } from "@coral-xyz/anchor";
-import { IDL, Northfund } from "./northfund-interface";
 import { NetworkName } from "@/types";
+import { Program } from "@coral-xyz/anchor";
 import { Connection } from "@solana/web3.js";
-import { getAlchemyRpcUrl } from "@/services/web3";
+import { IDL, Northfund } from "./northfund-interface";
 import { getProgramId } from "./programId";
 
 export async function northfundProgramInstance(
@@ -10,7 +9,7 @@ export async function northfundProgramInstance(
 ): Promise<Program<Northfund>> {
   // const rpcUrl = await getAlchemyRpcUrl(network);
   const connection = new Connection(
-    "https://rpc.devnet.soo.network/rpc", // soo.network RPC endpoint
+    "https://rpc.testnet.soo.network/rpc", // soo.network RPC endpoint
     "confirmed" // Commitment level
   );
   const programId = getProgramId(network);

@@ -3,6 +3,7 @@ import { Cluster } from "@solana/web3.js";
 export enum NetworkName {
   Mainnet = "Mainnet",
   Devnet = "Devnet",
+  Testnet = "Testnet",
 }
 
 export type NetworkDictionary<T = string> = {
@@ -12,6 +13,7 @@ export type NetworkDictionary<T = string> = {
 export const SolanaNetworkDictionary: NetworkDictionary = {
   [NetworkName.Mainnet]: "mainnet-beta",
   [NetworkName.Devnet]: "https://rpc.devnet.soo.network/rpc",
+  [NetworkName.Testnet]: "https://rpc.testnet.soo.network/rpc",
 };
 
 /**
@@ -20,5 +22,5 @@ export const SolanaNetworkDictionary: NetworkDictionary = {
 export const TestChainToMainnetName: Record<Cluster, NetworkName> = {
   "mainnet-beta": NetworkName.Mainnet,
   devnet: NetworkName.Devnet,
-  testnet: NetworkName.Devnet,
+  testnet: NetworkName.Testnet,
 };

@@ -12,14 +12,14 @@ export const SessionContext = React.createContext<{
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   setSelectedNetwork: any;
 }>({
-  selectedNetwork: NetworkName.Devnet,
+  selectedNetwork: NetworkName.Testnet,
   program: null,
   setSelectedNetwork: () => {},
 });
 
 export function useSession() {
   const [selectedNetwork, setSelectedNetwork] = useState<NetworkName>(
-    NetworkName.Devnet
+    NetworkName.Testnet
   );
   const [program, setProgram] = useState<Program<Northfund> | null>(null);
   const wallet = useAnchorWallet();
@@ -27,7 +27,7 @@ export function useSession() {
   useEffect(() => {
     if (wallet) {
       const connection = new Connection(
-        "https://rpc.devnet.soo.network/rpc",
+        "https://rpc.testnet.soo.network/rpc",
         "confirmed"
       );
       const provider: anchor.Provider = new anchor.AnchorProvider(
